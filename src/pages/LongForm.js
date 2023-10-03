@@ -1,20 +1,20 @@
 import React, { useReducer } from "react";
 import { initialState, reducer } from "../state/formReducer";
 
-const LongForm = () => {
+const LongForm = () => {  
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const submit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-
     console.log(state);
-  };
+  }
 
   return (
     <div className='h-screen w-screen flex justify-center items-center overflow-auto'>
       <form
+        onSubmit={handleSubmit}
         className='shadow-lg p-10 rounded-md flex flex-wrap gap-3 max-w-3xl justify-between'
-        onSubmit={submit}
       >
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='firstName'>
@@ -24,12 +24,7 @@ const LongForm = () => {
             type='text'
             name='firstName'
             id='firstName'
-            onBlur={(e) =>
-              dispatch({
-                type: "INPUT",
-                payload: { name: e.target.name, value: e.target.value },
-              })
-            }
+            onBlur={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
           />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
@@ -40,12 +35,7 @@ const LongForm = () => {
             type='text'
             name='lastName'
             id='lastName'
-            onBlur={(e) =>
-              dispatch({
-                type: "INPUT",
-                payload: { name: e.target.name, value: e.target.value },
-              })
-            }
+            onBlur={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
           />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
@@ -56,12 +46,7 @@ const LongForm = () => {
             type='email'
             name='email'
             id='email'
-            onBlur={(e) =>
-              dispatch({
-                type: "INPUT",
-                payload: { name: e.target.name, value: e.target.value },
-              })
-            }
+            onBlur={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
           />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
@@ -73,14 +58,9 @@ const LongForm = () => {
                 id='male'
                 name='gender'
                 value='male'
-                onClick={(e) =>
-                  dispatch({
-                    type: "INPUT",
-                    payload: { name: e.target.name, value: e.target.value },
-                  })
-                }
+                onClick={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
               />
-              <label className='ml-2 text-lg' for='male'>
+              <label className='ml-2 text-lg' htmlFor='male'>
                 Male
               </label>
             </div>
@@ -90,14 +70,9 @@ const LongForm = () => {
                 id='female'
                 name='gender'
                 value='female'
-                onClick={(e) =>
-                  dispatch({
-                    type: "INPUT",
-                    payload: { name: e.target.name, value: e.target.value },
-                  })
-                }
+                onClick={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
               />
-              <label className='ml-2 text-lg' for='female'>
+              <label className='ml-2 text-lg' htmlFor='female'>
                 Female
               </label>
             </div>
@@ -107,32 +82,22 @@ const LongForm = () => {
                 id='other'
                 name='gender'
                 value='other'
-                onClick={(e) =>
-                  dispatch({
-                    type: "INPUT",
-                    payload: { name: e.target.name, value: e.target.value },
-                  })
-                }
+                onClick={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
               />
-              <label className='ml-2 text-lg' for='other'>
+              <label className='ml-2 text-lg' htmlFor='other'>
                 Other
               </label>
             </div>
           </div>
         </div>
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-3' for='education'>
+          <label className='mb-3' htmlFor='education'>
             Education
           </label>
           <select
             name='education'
             id='education'
-            onChange={(e) =>
-              dispatch({
-                type: "INPUT",
-                payload: { name: e.target.name, value: e.target.value },
-              })
-            }
+            onChange={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
           >
             <option value='SSC'>SSC</option>
             <option value='HSC'>HSC</option>
@@ -143,19 +108,19 @@ const LongForm = () => {
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-3'>Number of PCs</label>
           <div className='flex justify-between items-center gap-2 '>
-            <button className='bg-indigo-500 text-lg text-white rounded h-10 w-10 '>
+            <span className='bg-indigo-500 text-lg text-white rounded h-10 w-10 ' onClick={() => dispatch({ type: 'DECREMENT' })}>
               -
-            </button>
+            </span>
             <div className='border flex-1 flex justify-center items-center h-10 rounded-md border-gray-300'>
-              <span className='text-lg'>0</span>
+              <span className='text-lg'>{state.quantity}</span>
             </div>
-            <button className='bg-indigo-500 text-lg text-white rounded h-10 w-10'>
+            <span className='bg-indigo-500 text-lg text-white rounded h-10 w-10' onClick={() => dispatch({ type: 'INCREMENT' })}>
               +
-            </button>
+            </span>
           </div>
         </div>
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-3' for='feedback'>
+          <label className='mb-3' htmlFor='feedback'>
             Feedback
           </label>
           <textarea
@@ -163,12 +128,7 @@ const LongForm = () => {
             id='feedback'
             cols='30'
             rows='4'
-            onBlur={(e) =>
-              dispatch({
-                type: "INPUT",
-                payload: { name: e.target.name, value: e.target.value },
-              })
-            }
+            onBlur={(e) => dispatch({ type: 'INPUT', payload: { name: e.target.name, value: e.target.value } })}
           ></textarea>
         </div>
 
@@ -179,9 +139,9 @@ const LongForm = () => {
               type='checkbox'
               name='term'
               id='terms'
-              onClick={() => dispatch({ type: "TOGGLE" })}
+              onClick={() => dispatch({ type: 'TOGGLE' })}
             />
-            <label for='terms'>I agree to terms and conditions</label>
+            <label htmlFor='terms'>I agree to terms and conditions</label>
           </div>
           <button
             className=' px-4 py-3 bg-indigo-500 rounded-md font-semibold text-white text-lg disabled:bg-gray-500'
